@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* src/styles/fonts.css */
+@font-face {
+  font-family: "BookingRegular";
+  src: url("/fonts/BookingRegular.woff") format("woff");
+  font-weight: 400; /* Adjust if needed */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BookingBold";
+  src: url("/fonts/BookingBold.woff") format("woff");
+  font-weight: 700; /* Adjust if needed */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BookingExtraBold";
+  src: url("/fonts/BookingExtraBold.woff") format("woff");
+  font-weight: 900; /* Adjust if needed */
+  font-style: normal;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge, Opera */
+}
+
+/* Custom styles for the date picker input */
+.custom-date-picker {
+  width: 100%; /* Ensures it stretches to the container */
+  max-width: 435px; /* Sets a max width for larger screens */
+  padding: 0.75rem;
+  border: 1px solid #d1d5db; /* Gray border */
+  border-radius: 0.375rem; /* Rounded corners */
+  font-size: 1rem; /* Default font size */
+  outline: none;
+}
+
+/* Focus state for the input */
+.custom-date-picker:focus {
+  border-color: #003b94; /* Blue border on focus */
+  box-shadow: 0 0 0 2px rgba(0, 59, 148, 0.5); /* Focus ring */
+}
+
+/* Custom styles for the calendar */
+.custom-calendar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Drop shadow */
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .custom-date-picker {
+    max-width: 300px; /* Smaller width for mobile screens */
+  }
+}

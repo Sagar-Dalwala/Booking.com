@@ -1,0 +1,142 @@
+import { useRef } from "react";
+import { Button } from "@material-tailwind/react";
+
+const StaysSearchHistory = () => {
+  const cardRef = useRef(null);
+
+  // Mock data for stays
+  const stays = [
+    {
+      id: 1,
+      title: "Luxury Hotel",
+      location: "New York, USA",
+      dates: "Jan 12 - Jan 15, 2024",
+      price: "$350",
+      image: "https://ui-avatars.com/api/?name=John", // Replace with real image URLs
+    },
+    {
+      id: 2,
+      title: "Beachside Resort",
+      location: "Maldives",
+      dates: "Feb 20 - Feb 25, 2024",
+      price: "$1200",
+      image: "https://ui-avatars.com/api/?name=Jane",
+    },
+    {
+      id: 3,
+      title: "Mountain Retreat",
+      location: "Swiss Alps",
+      dates: "Mar 5 - Mar 10, 2024",
+      price: "$800",
+      image: "https://ui-avatars.com/api/?name=Bob",
+    },
+    {
+      id: 4,
+      title: "Urban Apartment",
+      location: "Tokyo, Japan",
+      dates: "Apr 10 - Apr 15, 2024",
+      price: "$500",
+      image: "https://ui-avatars.com/api/?name=Alice",
+    },
+  ];
+
+  // Scroll function
+  const scroll = (direction) => {
+    if (direction === "left") {
+      cardRef.current.scrollBy({
+        left: -300,
+        behavior: "smooth",
+      });
+    } else {
+      cardRef.current.scrollBy({
+        left: 300,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <>
+      <div className="bg-gray-100 py-8">
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Your Recent Searches
+        </h2>
+        <div className="relative max-w-screen-xl mx-auto px-4">
+          {/* Scroll Buttons */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white shadow-md p-2 rounded-full z-10 hidden md:block"
+          >
+            <svg
+              className="h-6 w-6 text-gray-600"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-md p-2 rounded-full z-10 hidden md:block"
+          >
+            <svg
+              className="h-6 w-6 text-gray-600"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+
+          {/* Scrollable Cards */}
+          <div
+            ref={cardRef}
+            className="flex overflow-x-auto scrollbar-hidden gap-4 scrollbar-hide px-4 md:px-0"
+          >
+            {stays.map((stay) => (
+              <div
+                key={stay.id}
+                className="bg-white shadow-lg rounded-lg w-72 flex-shrink-0"
+              >
+                <img
+                  src={stay.image}
+                  alt={stay.title}
+                  className="rounded-t-lg w-full h-40 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg">{stay.title}</h3>
+                  <p className="text-sm text-gray-600">{stay.location}</p>
+                  <p className="text-sm text-gray-600">{stay.dates}</p>
+                  <p className="font-bold mt-2">{stay.price}</p>
+                  <Button
+                    variant="outlined"
+                    size="sm"
+                    className="mt-4 w-full text-[#003b94] border-[#003b94]"
+                  >
+                    View Details
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default StaysSearchHistory;
