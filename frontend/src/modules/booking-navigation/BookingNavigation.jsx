@@ -27,6 +27,7 @@ const BookingNavigation = () => {
     if (currentNavItem) {
       setSelected(currentNavItem.label);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]); // Run this effect whenever the location changes
 
   const handleNavigation = (label, path) => {

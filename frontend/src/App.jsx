@@ -4,6 +4,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import SignInPage from "./pages/auth/signin/SignInPage";
 import SignUpPage from "./pages/auth/signup/SignUpPage";
 import Stays from "./pages/stays/Stays";
+import FilterPage from "./pages/filter/FilterPage";
+import StaysDetails from "./pages/stays-details/StaysDetails";
 
 // Placeholder components for other sections
 const Flights = () => <div>Flights Content</div>;
@@ -20,7 +22,8 @@ function App() {
           {/* Authentication Routes */}
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-
+          <Route path="/filter" element={<FilterPage />} />
+          <Route path="/stays/:id" element={<StaysDetails />} />
           {/* Dashboard with nested routes */}
           <Route path="/" element={<Dashboard />}>
             <Route index element={<Stays />} />

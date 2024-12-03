@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 const StaysSearchHistory = () => {
   const cardRef = useRef(null);
@@ -71,6 +72,12 @@ const StaysSearchHistory = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleViewClick = (id) => {
+    navigate(`/stays/${id}`);
+  };
+
   return (
     <div className="bg-gray-100 py-6 font-booking">
       <div className="relative max-w-screen-xl mx-auto px-4">
@@ -121,32 +128,28 @@ const StaysSearchHistory = () => {
           className="flex overflow-x-auto scrollbar-hidden gap-3 px-2 md:px-0"
         >
           {stays.map((stay) => (
-            <div
-              key={stay.id}
-              className="bg-white shadow rounded-lg w-56 flex-shrink-0"
-            >
-              <img
-                src={stay.image}
-                alt={stay.title}
-                className="rounded-t-lg w-full h-28 object-cover"
-              />
-              <div className="p-3">
-                <h3 className="font-medium text-sm truncate">{stay.title}</h3>
-                <p className="text-xs text-gray-500 truncate">
-                  {stay.location}
-                </p>
-                <p className="text-xs text-gray-500">{stay.dates}</p>
-                <p className="font-bold text-sm mt-1">{stay.price}</p>
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  className="mt-2 w-full text-[#003b94] border-[#003b94] text-xs"
-                >
-                  View
-                </Button>
-              </div>
-            </div>
-          ))}
+      <div key={stay.id} className="bg-white shadow rounded-lg w-56 flex-shrink-0">
+        <img
+          src={stay.image}
+          alt={stay.title}
+          className="rounded-t-lg w-full h-28 object-cover"
+        />
+        <div className="p-3">
+          <h3 className="font-medium text-sm truncate">{stay.title}</h3>
+          <p className="text-xs text-gray-500 truncate">{stay.location}</p>
+          <p className="text-xs text-gray-500">{stay.dates}</p>
+          <p className="font-bold text-sm mt-1">{stay.price}</p>
+          <Button
+            variant="outlined"
+            size="sm"
+            className="mt-2 w-full text-[#003b94] border-[#003b94] text-xs"
+            onClick={() => handleViewClick(stay.id)}
+          >
+            View
+          </Button>
+        </div>
+      </div>
+    ))}
         </div>
       </div>
     </div>
