@@ -1,0 +1,93 @@
+<div className="flex flex-col space-y-4">
+        {filteredFlights.map((flight) => (
+          <div
+            key={flight.id}
+            className="border rounded-lg shadow-md p-4 flex flex-col md:flex-row space-y-4 md:space-y-0"
+          >
+            {/* Left Section: Airline Info */}
+            <div className="flex-shrink-0">
+              <img
+                src={flight.logo}
+                alt={flight.airline}
+                className="h-12 w-auto object-contain mb-2"
+              />
+              <p className="text-sm text-gray-500">{flight.airline}</p>
+            </div>
+
+            {/* Middle Section: Flight Details */}
+            <div className="flex-grow space-y-4">
+              {/* Departure Section */}
+              <div className="flex items-center">
+                <div className="flex-grow">
+                  <p className="text-lg font-semibold text-gray-800">
+                    {flight.departure.time}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {flight.departure.airport} → {flight.departure.destination}
+                  </p>
+                </div>
+                <BsArrowRightShort className="w-6 h-6 text-gray-600" />
+                <div>
+                  <p className="text-lg font-semibold text-gray-800">
+                    {flight.departure.duration}
+                  </p>
+                  <p className="text-sm text-gray-500">{flight.departure.stops}</p>
+                </div>
+              </div>
+
+              {/* Return Section for Round Trip */}
+              {flight.type === "Round Trip" && (
+                <div className="flex items-center">
+                  <img
+                src={flight.logo}
+                alt={flight.airline}
+                className="h-12 w-auto object-contain mb-2"
+              />
+                  <div className="flex-grow">
+                    <p className="text-lg font-semibold text-gray-800">
+                      {flight.return.time}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {flight.return.airport} → {flight.return.destination}
+                    </p>
+                  </div>
+                  <BsArrowLeftShort className="w-6 h-6 text-gray-600" />
+                  <div>
+                    <p className="text-lg font-semibold text-gray-800">
+                      {flight.return.duration}
+                    </p>
+                    <p className="text-sm text-gray-500">{flight.return.stops}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Luggage Info */}
+              <div className="text-sm text-gray-600 flex items-center space-x-2">
+                {flight.luggage.map((item, index) => (
+                  <span key={index} className="flex items-center space-x-1">
+                    <span>{item.icon}</span>
+                    <span>{item.type}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Section: Price and Buttons */}
+            <div className="flex flex-col items-end space-y-2">
+              <p className="text-xl font-semibold text-gray-800">
+                ₹{flight.price.toLocaleString()}
+              </p>
+              <Button
+                variant="filled"
+                color="blue"
+                className="text-sm"
+              >
+                View Details
+              </Button>
+              <IconButton>
+                <AiOutlineHeart className="w-5 h-5 text-gray-500" />
+              </IconButton>
+            </div>
+          </div>
+        ))}
+      </div>
