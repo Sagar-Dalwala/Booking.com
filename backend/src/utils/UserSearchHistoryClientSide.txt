@@ -1,0 +1,55 @@
+// Function to store search history
+function saveSearchHistory(searchQuery) {
+  // Get existing search history from local storage
+  let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+  
+  // Add the new search query to the history
+  history.push(searchQuery);
+  
+  // Limit the history to the last 5 searches (optional)
+  if (history.length > 5) {
+    history.shift(); // Remove the oldest search
+  }
+
+  // Save the updated history back to local storage
+  localStorage.setItem('searchHistory', JSON.stringify(history));
+}
+
+// Function to retrieve search history
+function getSearchHistory() {
+  return JSON.parse(localStorage.getItem('searchHistory')) || [];
+}
+
+// Example usage:
+const searchQuery = {
+  destination: "Miami",
+  checkIn: "2024-12-22T00:00:00.000Z",
+  checkOut: "2024-12-30T00:00:00.000Z",
+  adults: 2,
+  children: 1,
+};
+saveSearchHistory(searchQuery);
+console.log(getSearchHistory());
+
+
+// For non-logged-in users, store in localStorage
+function saveSearchHistory(searchQuery) {
+  let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+  history.push(searchQuery);
+  // Optional: Limit history to 5 entries
+  if (history.length > 5) {
+    history.shift();
+  }
+  localStorage.setItem('searchHistory', JSON.stringify(history));
+}
+
+// For logged-in users, you would send the search query to your backend to store it in the database
+async function saveSearchHistoryToBackend(searchQuery) {
+  await fetch('/api/save-search-history', {
+    method: 'POST',
+    body: JSON.stringify(searchQuery),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}

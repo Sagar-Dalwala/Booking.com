@@ -1,0 +1,16 @@
+export const getLocationTypes = () => [
+  "Romance",
+  "City",
+  "Beach",
+  "Relax",
+  "Outdoor",
+  "Adventure",
+  "Family",
+  "Cultural",
+  "Mountain",
+  "Desert",
+  "Forest",
+  "Ski",
+  "Night Life",
+  "Historical",
+];

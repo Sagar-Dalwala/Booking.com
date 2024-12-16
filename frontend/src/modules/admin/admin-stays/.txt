@@ -1,0 +1,144 @@
+Yes, you can definitely display additional details of the property on hover over the **name** by using a **tooltip** or a **popup** that shows the details of the property. For this, you can use the **react-tooltip** library, or you can create a custom hover effect.
+
+Here’s how you can achieve this by showing a **tooltip** or a **popup** when the admin hovers over the property name:
+
+### Steps:
+
+1. **Use a Tooltip**: Display the basic property details when hovering over the name.
+2. **Use a Popup/Popover**: Show a more detailed view of the property (like a modal or a popover) on hover or click.
+
+I'll explain both approaches:
+
+### 1. Tooltip on Hover
+Using a simple **tooltip** to show basic details when hovering over the property name.
+
+You can use **Material-UI's Tooltip** or any other tooltip library. Here’s an example with `react-tooltip`:
+
+#### Install the Tooltip library:
+```bash
+npm install react-tooltip
+```
+
+#### Example Code (with Tooltip):
+```jsx
+import ReactTooltip from "react-tooltip";
+
+const columns = [
+  { name: "No.", selector: (row, index) => index + 1, sortable: true },
+  {
+    name: "Name",
+    selector: (row) => (
+      <button
+        className="text-secondary"
+        data-tip={`Property Name: ${row.name}`}
+        onClick={() => handleNameClick(row)}
+      >
+        {row.name}
+      </button>
+    ),
+    sortable: true,
+  },
+  // ... other columns
+];
+
+return (
+  <>
+    <DataTable
+      columns={columns}
+      data={stays}
+      pagination
+      highlightOnHover
+      striped
+      responsive
+      pointerOnHover
+      customStyles={/* your custom styles */}
+      className="shadow-md rounded-lg"
+    />
+    <ReactTooltip place="top" effect="solid" />
+  </>
+);
+```
+
+In this example:
+- **`data-tip`** is used to define the content of the tooltip that will show when the admin hovers over the property name.
+- The tooltip displays the name of the property and can be extended to show additional details like price, description, etc.
+
+### 2. Popup/Popover on Hover or Click
+If you want more detailed information, you could show a **popover** (a small popup) that appears when hovering or clicking on the property name.
+
+For this, you could use libraries like **react-popover** or implement a custom **popover**.
+
+#### Example Code (with React Popover):
+
+```bash
+npm install react-popover
+```
+
+```jsx
+import Popover from "react-popover";
+
+const [popoverOpen, setPopoverOpen] = useState(false);
+const [hoveredStay, setHoveredStay] = useState(null);
+
+const handlePopoverToggle = (stay) => {
+  setHoveredStay(stay);
+  setPopoverOpen(!popoverOpen);
+};
+
+const columns = [
+  { name: "No.", selector: (row, index) => index + 1, sortable: true },
+  {
+    name: "Name",
+    selector: (row) => (
+      <Popover
+        isOpen={popoverOpen && hoveredStay?._id === row._id}
+        onOuterAction={() => setPopoverOpen(false)}
+        body={
+          <div className="p-4 shadow-lg bg-white rounded-md">
+            <h4 className="font-bold">Property Details</h4>
+            <p>{row.description}</p>
+            <p>Price: ${row.pricePerNight}</p>
+            <p>Max Guests: {row.maxGuests}</p>
+          </div>
+        }
+      >
+        <button
+          className="text-secondary"
+          onClick={() => handleNameClick(row)}
+          onMouseEnter={() => handlePopoverToggle(row)}
+          onMouseLeave={() => setPopoverOpen(false)}
+        >
+          {row.name}
+        </button>
+      </Popover>
+    ),
+    sortable: true,
+  },
+  // ... other columns
+];
+
+return (
+  <DataTable
+    columns={columns}
+    data={stays}
+    pagination
+    highlightOnHover
+    striped
+    responsive
+    pointerOnHover
+    customStyles={/* your custom styles */}
+    className="shadow-md rounded-lg"
+  />
+);
+```
+
+In this example:
+- The **popover** shows detailed information when the user hovers over the name of the property.
+- `onMouseEnter` and `onMouseLeave` are used to trigger the popover's visibility.
+- You can also use **`Popover`** on **click** (by replacing `onMouseEnter`/`onMouseLeave` with `onClick`).
+
+### Final Thoughts:
+- If you want to display **only a few details** (like price, description, and guests), **tooltips** are a simpler solution.
+- If you want to show **more detailed information** (like an expanded view with several fields), using a **popover** or even a **modal** would be more appropriate.
+
+Would you like help setting up a specific one, or do you prefer to go with a particular approach?
